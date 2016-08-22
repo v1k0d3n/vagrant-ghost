@@ -6,3 +6,4 @@ temp
 
 # Things we really don't need stored in GitHub:
 ghost-install/group_vars/all.yml
+ghost-install/*.retry
