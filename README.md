@@ -16,6 +16,13 @@ your-machine@~ $ vagrant up
 
 Then connect to your machine at [http://192.168.236.10:2368](http://192.168.236.10:2368).
 
+##### BOY backups
+If you want to BYOB, make sure to copy the variables file located in `ghost-install/group_vars/all-sample.yml` to `all.yml`.
+
+```
+your-machine@~ $ cp ghost-install/group_vars/all-sample.yml ghost-install/group_vars/all.yml
+```
+
 Refer to [Vagrant Documentation](https://www.vagrantup.com/docs/) for more information.
 
 #### Notes
