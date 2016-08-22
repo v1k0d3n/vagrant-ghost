@@ -1,0 +1,53 @@
+---
+# Copyright 2016, JinkIT, and it's Authors.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+- name: copy our working project configuration to the ghost directory
+  template: src=config.js.j2 dest=/var/www/ghost/config.js backup=yes
+
+- name: copy the supervisord unit for ghost
+  template: src=ghost.conf.j2 dest=/etc/supervisor/conf.d/ghost.conf backup=no
+
+- name: fetching lastest backup version of ghost blog
+  get_url: url={{ghost_byob_link}} dest=/tmp/ghost-backup.tgz
+  when: ghost_byob
+  ignore_errors: true
+  tags: ghost-byob
+
+- name: unpack the tgz formatted backup to temp directory
+  unarchive: copy=no src=/tmp/ghost-backup.tgz dest=/tmp
+  when: ghost_byob
+  ignore_errors: true
+  tags: ghost-byob
+
+- name: cherry-pick "apps" from temp directory
+  shell: cp -r /tmp/ghost/apps /var/www/ghost/content/
+  when: ghost_byob
+  ignore_errors: true
+  tags: ghost-byob
+
+- name: cherry-pick "images" from temp directory
+  shell: cp -r /tmp/ghost/images /var/www/ghost/content/
+  when: ghost_byob
+  ignore_errors: true
+  tags: ghost-byob
+
+- name: cherry-pick "themes" from temp directory
+  shell: cp -r /tmp/ghost/themes /var/www/ghost/content/
+  when: ghost_byob
+  ignore_errors: true
+  tags: ghost-byob
+
+- name: use supervisord to start the ghost blog service
+  supervisorctl: name=ghost state=restarted

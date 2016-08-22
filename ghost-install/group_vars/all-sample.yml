@@ -1,0 +1,3 @@
+# Bring your own "backup". Link must be compressed 'content' directory.
+ghost_byob: yes
+ghost_byob_link: http://basebox.jinkit.com/backups/ghost-160821-1431.tgz
