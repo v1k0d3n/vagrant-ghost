@@ -10,7 +10,7 @@ I wanted to keep requirements light. You will need the following prerequisites t
 Once you have the required prerequisites installed on your machine, simply do the following:
 
 ```
-your-machine@~ $ git clone
+your-machine@~ $ git clone https://github.com/v1k0d3n/vagrant-ghost.git
 your-machine@~ $ vagrant up
 ```
 
