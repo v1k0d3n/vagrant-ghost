@@ -23,7 +23,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       ghost.vm.network "private_network", ip: "192.168.236.1#{e}"
       ghost.vm.network "forwarded_port", guest: 2368, host: 12368
       ghost.vm.provider "virtualbox" do |vb|
-        vb.name = "roto_ghost#{e}"
         vb.customize ["modifyvm", :id, "--memory", "512"]
         vb.customize ["modifyvm", :id, "--cpus", "1"]
       end
